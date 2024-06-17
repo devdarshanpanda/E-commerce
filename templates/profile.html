@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section style="background-color: #eee;">
+    <div class="container py-5">
+        {% comment %} -----------------------------nav start------------------------------  {% endcomment %}
+        <div class="row">
+            <div class="col">
+              <nav aria-label="breadcrumb" class="bg-body-tertiary rounded-3 p-3 mb-4">
+                <h3 class="text-success">{{ user.get_full_name }}</h3>     
+              </nav>
+            </div>
+        </div>
+        {% comment %} -----------------------------nav end------------------------------  {% endcomment %}
+
+
+        {% comment %} -----------------------------profile start------------------------------  {% endcomment %}
+        <div class="row">
+            {% comment %} -----------------------------user card start------------------------------  {% endcomment %}
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                  <div class="card-body text-center">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                      class="rounded-circle img-fluid" style="width: 150px;">
+                    <h5 class="my-3">{{ user.get_full_name }}</h5>
+                    <div class="d-flex justify-content-center mb-2">
+                      <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary"> <a href="{% url "order" %}" class="text-light">Orders</a></button>
+                      <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary ms-1"> <a href="{% url "cart" %}" class="text-light">Cart</a></button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            {% comment %} -----------------------------user cars end------------------------------  {% endcomment %}
+            {% comment %} -----------------------------user data start------------------------------  {% endcomment %}
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body pt-5 pb-3">
+                        <span class="mb-0 ms-5 me-5">First Name</span>
+                        <span class="text-muted mb-0 ms-5">{{user.first_name}}</span>
+                        <hr>
+                        <span class="mb-0 ms-5 me-5">Last Name</span>
+                        <span class="text-muted mb-0 ms-5">{{user.last_name}}</span>
+                        <hr>
+                        <span class="mb-0 ms-5 me-5">User Email</span>
+                        <span class="text-muted mb-0 ms-5">{{user.email}}</span>
+                        <hr>
+                        <span class="mb-0 ms-5 me-5">UserName</span>
+                        <span class="text-muted mb-0 ms-5">{{user.username}}</span>
+                        <hr>
+                        {% comment %} <span class="mb-0 ms-5 me-5">User Phone</span> {% endcomment %}
+                        {% comment %} <span class="text-muted mb-0 ms-5">{{address.phone}}</span> {% endcomment %}
+                        {% comment %} <hr> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+      
+            {% comment %} -----------------------------user data end------------------------------  {% endcomment %}
+
+        </div>    
+        {% comment %} -----------------------------profile end------------------------------  {% endcomment %}
+
+        {% comment %} -----------------------------address form start------------------------------  {% endcomment %}
+        <div class="row d-flex justify-content-center mt-5">
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body p-4 p-lg-5 text-black">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5  text-secondary">Address</h3>
+                        <form action="{% url "profile" %}" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                              <div class="col-md-6 mb-4">
+                                <div data-mdb-input-init class="form-outline">
+                                    {{form.name.label_tag}}
+                                    {{form.name}} 
+                                    {{form.name.errors }}
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div data-mdb-input-init class="form-outline">
+                                    {{form.phone.label_tag}}
+                                    {{form.phone}}
+                                    {{form.phone.errors}}
+                                </div>
+                            </div>
+                            </div>
+            
+                            <div class="row">
+                            <div class="col-md-6 mb-4 d-flex align-items-center">
+                                <div class="form-outline datepicker w-100">
+                                    {{form.street.label_tag}}
+                                {{form.street}} 
+                                {{form.street.errors}}
+                                </div>
+                            </div>
+            
+                            <div class="col-md-6 mb-4 d-flex align-items-center">
+                                <div
+                                data-mdb-input-init
+                                class="form-outline datepicker w-100">
+                                {{form.city.label_tag}}
+                                {{form.city}} 
+                                {{form.city.errors}}
+                                </div>
+                            </div>
+                            </div>
+            
+                            <div class="row">
+                            <div class="col-md-6 mb-4 d-flex align-items-center">
+                                <div
+                                data-mdb-input-init
+                                class="form-outline datepicker w-100">
+                                {{form.zipcode.label_tag}}
+                                {{form.zipcode}} 
+                                {{form.zipcode.errors}}
+                                </div>
+                            </div>
+            
+                            <div class="col-md-6 mb-4 d-flex align-items-center">
+                                <div class="form-outline datepicker w-100">
+                                {{form.state.label_tag}}
+                                {{form.state}}
+                                {{form.state.errors}}
+                                </div>
+                            </div>
+                            </div>
+    
+                            <div class="mt-4 pt-2 ">
+                                <input class="btn btn-secondary btn-lg ps-5 pe-5" type="submit" value="Add address" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        
+        {% comment %} -----------------------------address form end------------------------------  {% endcomment %}
+
+        {% comment %} -----------------------------address start------------------------------  {% endcomment %}
+        <div class="row d-flex justify-content-center">
+          {% for i in address %}
+          <div class="col-md-3">
+            <div class="card m-4">
+              <h4 class="text-danger text-center pt-3">Address{{forloop.counter}}</h4>
+              <div class="card-body pt-3">
+                <p>Name: <span>{{i.name}}</span> </p>
+                <p>phone: <span>{{i.phone}}</span> </p>
+                <p>street: <span>{{i.street}}</span> </p>
+                <p>city: <span>{{i.city}}</span> </p>
+                <p>zipcode: <span>{{i.zipcode}}</span> </p>
+                <p>state: <span>{{i.state}}</span> </p>
+              </div>
+            </div>
+            </div>
+          {% endfor %}
+        </div>
+        {% comment %} -----------------------------address end------------------------------  {% endcomment %}
+
+    </div>
+</section>
+{% endblock content %}
+
+

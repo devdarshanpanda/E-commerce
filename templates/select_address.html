@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="mb-5">
+    <div class="container mt-5">
+        <div class="row mt-5">
+            <div class="col">
+                <nav aria-label="breadcrumb" class="bg-body-tertiary rounded-3 p-3 mb-4">
+                    <h3 class="text-danger">Select Address</h3>   
+                </nav>
+            </div>
+        </div>
+        <div class="row ">
+            <form action="{% url "order_place" %}">
+                <div class="d-flex justify-content-center">
+                {% for i in address %}
+                <div class="col-md-3">  
+                <div class="card mx-4">
+                    <h4 class="text-danger text-center pt-3">Address {{forloop.counter}}</h4>
+                    <div class="card-body pt-3">
+                        <p>Name: <span>{{i.name}}</span> </p>
+                        <p>phone: <span>{{i.phone}}</span> </p>
+                        <p>street: <span>{{i.street}}</span> </p>
+                        <p>city: <span>{{i.city}}</span> </p>
+                        <p>zipcode: <span>{{i.zipcode}}</span> </p>
+                        <p>state: <span>{{i.state}}</span> </p>
+                        <input type="radio" name="address" value={{i.id}} id="radio">
+                        <label for="radio">Select Address</label>
+                    </div>
+                </div>
+                </div>
+                {% endfor %}
+                </div>
+
+                <div class="col mt-5">
+                    <nav aria-label="breadcrumb" class="bg-body-tertiary rounded-3 p-3 mb-4 d-flex justify-content-center"> 
+                        <button class='btn btn-danger' type='submit'>Placed Order</button>
+                    </nav>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="mb-5">
+    <div class="container mt-5">
+        <div class="row mt-5">
+            <div class="col">
+                <nav aria-label="breadcrumb" class="bg-body-tertiary rounded-3 p-3 mb-4 d-flex justify-content-center">
+                    <h3 class="text-danger">Your Orders</h3>   
+                </nav>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-7 mt-5">
+                {% comment %} card srart  {% endcomment %}
+                {% for i in order_data %} 
+                <div class="card rounded-3 mt-3 mb-4">
+                  <div class="card-body p-4 ">
+                    <div class="row d-flex justify-content-between align-items-center">
+        
+                      <div class="col-md-2 col-lg-2 col-xl-2 m-2">
+                        <img src="{{i.products.img.url}}" class="img-fluid rounded-3" alt="img"/>
+                      </div>
+        
+                      <div class="col-md-2 col-lg-2 col-xl-2 m-2">
+                        <p class="lead fw-normal mb-2">{{i.products.product_name}}</p>
+                      </div>
+        
+                    
+                      <div class="col-md-2 col-lg-2 col-xl-2 m-2">
+                        <h5 class="mb-0"><i class="fa-solid fa-indian-rupee-sign"></i>{{i.products.selling_price}}</h5>
+                      </div>
+        
+                      <div class="col-md-4 col-lg-3 col-xl-3 m-2">
+                        <p class="mb-0">Status: <span>{{i.status}}</span></p>
+ 
+                      </div>
+        
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+                {% comment %} card end  {% endcomment %}
+              </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+
